@@ -1,0 +1,6 @@
+#
+**.csv
+
+# ignorar checkpoints do Jupyter 
+.ipynb_checkpoints/ 
+
