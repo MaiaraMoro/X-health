@@ -28,19 +28,21 @@ class FeatureEngineeringTransformer(BaseEstimator, TransformerMixin):
         X["ioi_3months"] = X["ioi_3months"].round().astype(int)
 
         # Transformando float em inteiro (e não precisam arredondar)
-        cols_para_int = ["default_3months", "quant_protestos", "quant_acao_judicial", "dividas_vencidas_qtd", "falencia_concordata_qtd", "month", "year"] 
+        cols_para_int = ["default_3months", "quant_protestos", "quant_acao_judicial", "dividas_vencidas_qtd", "falencia_concordata_qtd", "month"] 
         X[cols_para_int] = X[cols_para_int].astype(int)
 
-        # binarizar as colunas com muitos zeros
-        cols_binarizar = ["quant_protestos", "quant_acao_judicial", "dividas_vencidas_qtd", "falencia_concordata_qtd", "default_3months"]
-        for col in cols_binarizar:
-            X[f"{col}_bin"] = (X[col] > 0).astype(int)
+        # binarizar default 3 months
+        X["default_3months_bin"] = (X["default_3months"] > 0).astype(int)
         
-        # criar colunas log transformadas para as variáveis financeiras
-        cols_to_log = ["valor_por_vencer","valor_vencido","valor_quitado", "valor_protestos", "acao_judicial_valor", "dividas_vencidas_valor", "valor_total_pedido"]
+        # criar colunas log transformadas para algumas variáveis financeiras
+        cols_to_log = ["valor_por_vencer", "valor_vencido", "valor_quitado", "dividas_vencidas_valor", "valor_total_pedido"]
         for col in cols_to_log:
             log_col = f"log1p_{col}"
             X[log_col] = np.log1p(X[col])
+        
+        # proporção de valores vencidos e quitados
+        X["prop_vencido"] = X.apply(lambda row: row["valor_vencido"] / (row["valor_quitado"] + row["valor_por_vencer"] + 1), axis=1)
+        X["prop_quitado"] = X.apply(lambda row: row["valor_quitado"] / (row["valor_quitado"] + row["valor_por_vencer"] + 1), axis=1)
 
         # categorizar ioi_3months e ioi_36months 
         X['ioi_36m_cat'] = pd.cut(X['ioi_36months'], bins=[0,20,38,70,9999], labels=["<=20", "21-38", "39-70", ">70"])
@@ -48,6 +50,16 @@ class FeatureEngineeringTransformer(BaseEstimator, TransformerMixin):
 
         # criar coluna com a razão entre ioi_3months e ioi_36months 
         X["ratio_ioi"] = X["ioi_3months"] / (X["ioi_36months"] + 1)
+
+        # criar coluna com "score_bureau"
+        X["score_bureau"] = (
+            (X["quant_protestos"] > 0) |
+            (X["valor_protestos"] > 0) |
+            (X["acao_judicial_valor"] > 0) |
+            (X["dividas_vencidas_valor"] > 0) |
+            (X["falencia_concordata_qtd"] > 0) |
+            (X["quant_acao_judicial"] > 0) |
+            (X["dividas_vencidas_qtd"] > 0)).astype(int)
 
         # agrupar categorias em tipo_sociedade por características semelhantes
         grupos_sociedade = {'empresario (individual)': 'individual',
@@ -118,10 +130,6 @@ class FeatureEngineeringTransformer(BaseEstimator, TransformerMixin):
             return "outros"
         X["atividade_agrupada"] = X["atividade_principal"].apply(categorizar_atividade)
 
-        # proporção de valores vencidos e quitados
-        X["prop_vencido"] = X.apply(lambda row: row["valor_vencido"] / (row["valor_quitado"] + row["valor_por_vencer"] + 1), axis=1)
-        X["prop_quitado"] = X.apply(lambda row: row["valor_quitado"] / (row["valor_quitado"] + row["valor_por_vencer"] + 1), axis=1)
-
         # agrupar meses em trimestres
         def agrupar_meses(x):
             if x <= 4:
@@ -132,11 +140,12 @@ class FeatureEngineeringTransformer(BaseEstimator, TransformerMixin):
                 return "3"
             else:
                 return "4"
+            
         X["trimestre"] = X["month"].apply(agrupar_meses)
             
         # remover colunas
         X = X.drop(["valor_por_vencer", "valor_vencido", "valor_quitado", "valor_protestos", "acao_judicial_valor", "dividas_vencidas_valor", "valor_total_pedido", 
                 "quant_protestos", "quant_acao_judicial", "dividas_vencidas_qtd", "falencia_concordata_qtd", "forma_pagamento", "tipo_sociedade",
-                "atividade_principal", "month"], axis=1)
+                "atividade_principal", "month", "default_3months"], axis=1)
         
         return X
