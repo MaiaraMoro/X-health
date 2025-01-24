@@ -5,7 +5,7 @@
 
 ### **1. Introdução**  
 
-A X-Health, uma empresa do setor B2B de dispositivos eletrônicos para saúde, enfrenta desafios relacionados à inadimplência de clientes em vendas a crédito. A falta de pagamento impacta diretamente o fluxo de caixa e a sustentabilidade financeira da empresa, exigindo uma solução preditiva para antecipar quais clientes possuem maior risco de não pagamento. Para mitigar esse risco e aprimorar suas decisões financeiras, foi desenvolvido um modelo preditivo de default, capaz de antecipar clientes com alta probabilidade de não pagamento (*default*).
+A X-Health, uma empresa do setor B2B de dispositivos eletrônicos para saúde, enfrenta desafios relacionados à inadimplência de clientes em vendas a crédito. A falta de pagamento impacta diretamente o fluxo de caixa e a sustentabilidade financeira da empresa, exigindo uma solução preditiva para antecipar quais clientes possuem maior risco de não pagamento. Para mitigar esse risco, foi desenvolvido um modelo preditivo de default, capaz de antecipar clientes com alta probabilidade de não pagamento (*default*).
 
 A solução proposta utiliza uma abordagem baseada em Machine Learning. O modelo foi treinado e validado com um conjunto de dados estruturado, considerando variáveis representativas do comportamento financeiro dos clientes, incluindo histórico de pagamentos, perfil tributário, características empresariais e informações de bureaus de crédito. Foram testados diferentes algoritmos, incluindo Regressão Logística, Random Forest e XGBoost, sendo este último escolhido por apresentar o melhor equilíbrio entre métricas de desempenho, como recall e precisão.
 
@@ -89,13 +89,14 @@ Com essa previsão, a empresa poderá:
 
 *  Modelo escolhido: O **XGBoost** foi o modelo final escolhido, pois apresentou melhor performance em recall, que é uma métrica relevante para minimizar falsos negativos (ou seja, clientes que não fariam o pagamento, mas não foram identificados pelo modelo). O custo de um falso negativo pode ser muito alto para a empresa. Assim, garantir que o modelo identifique o maior número possível de clientes inadimplentes foi a prioridade.
 
-*  Performance: AUC= 0.91 - Recall ~80% - Precisão ~50%
+*  Performance: AUC= 0.89 - Recall ~80% - Precisão ~50%
 
 
 #### **5. Como utilizar**  
 
 
 *  1.  Clonar este repositório
+
 
 
     ```bash
@@ -105,17 +106,20 @@ Com essa previsão, a empresa poderá:
 
     ```
     
+    
 *  2.  Instalar dependências (arquivo environment.yml) 
+
 
 
     ```bash
     conda env create -f environment.yml
     ```
 
+
 *  3.  Rodar Notebooks
-    * Executar o Notebook 1 (notebooks/01_analise_exploratoria.ipynb) para ver a Análise Exploratória.
-    *  Executar o Notebook 2 (notebooks/02_pipeline_modelagem.ipynb) para treinar e avaliar o modelo. Um pipeline final é salvo em model/pipeline_predicao_default.pkl.
-    *  Executar o Notebook 3 (notebooks/03_funcao_predicao.ipynb) para ver como usar a função predict_default(input_dict).
+    * Executar o Notebook 1 (notebooks/01_analise_exploratoria.ipynb): Análise Exploratória.
+    *  Executar o Notebook 2 (notebooks/02_pipeline_modelagem.ipynb): treinamento e avaliação do modelo. Um pipeline final é salvo em model/pipeline_predicao_default.pkl.
+    *  Executar o Notebook 3 (notebooks/03_funcao_predicao.ipynb): função de predição *predict_default()*
 
 
 #### Contato
