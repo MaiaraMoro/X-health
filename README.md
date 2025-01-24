@@ -9,7 +9,7 @@ A X-Health, uma empresa do setor B2B de dispositivos eletrônicos para saúde, e
 
 A solução proposta utiliza uma abordagem baseada em Machine Learning. O modelo foi treinado e validado com um conjunto de dados estruturado, considerando variáveis representativas do comportamento financeiro dos clientes, incluindo histórico de pagamentos, perfil tributário, características empresariais e informações de bureaus de crédito. Foram testados diferentes algoritmos, incluindo Regressão Logística, Random Forest e XGBoost, sendo este último escolhido por apresentar o melhor equilíbrio entre métricas de desempenho, como recall e precisão.
 
-O modelo final é integrado a uma função de predição que permite análises em tempo real com base nas informações de um cliente. Esta solução tem potencial para reduzir a exposição ao risco financeiro da empresa, garantindo uma gestão de crédito mais eficiente e baseada em dados.
+O modelo final é integrado a uma função de predição. Esta solução tem potencial para reduzir a exposição ao risco financeiro da empresa, garantindo uma gestão de crédito mais eficiente e baseada em dados.
 
 
 ### **2. Objetivo**   
@@ -27,7 +27,7 @@ Com essa previsão, a empresa poderá:
 ### **3. O dataset** 
 
 
-*  Cada linha representa um cliente e as colunas representam diferentes tipos de informações desses clientes. A variável resposta é a coluna `default`, que indica se o cliente veio a se tornar inadimplente(1) ou não(0). As variáveis do dataset são descritas abaixo:
+*  Cada linha representa um cliente e as colunas representam diferentes tipos de informações desses clientes. A variável alvo é `default`, que indica se o cliente veio a se tornar inadimplente (1) ou não (0). As variáveis do dataset são descritas abaixo:
 
     -  `default_3months` : Quantidade de default nos últimos 3 meses
     -  `ioi_36months`: Intervalo médio entre pedidos (em dias) nos últimos 36 meses
@@ -73,7 +73,7 @@ Com essa previsão, a empresa poderá:
         *  Retorna {"default": 0 or 1} (previsão de *default*)
 
 
-### Transformação dos dados
+#### Transformação dos dados
 
 *  Para centralizar e organizar todas as transformações aplicadas aos dados, foi criado um Custom Transformer (FeatureEngineeringTransformer), que foi salvo no diretório src/.
 
@@ -113,9 +113,9 @@ Com essa previsão, a empresa poderá:
     ```
 
 *  3.  Rodar Notebooks
-    * Executar o Notebook 1 (notebooks/1_EDA.ipynb) para ver a Análise Exploratória.
-    *  Executar o Notebook 2 (notebooks/2_Modelagem.ipynb) para treinar e avaliar o modelo. Um pipeline final é salvo em model/pipeline_predicao_default.pkl.
-    *  Executar o Notebook 3 (notebooks/3_PredictFunction.ipynb) para ver como chamar a função predict_default(input_dict).
+    * Executar o Notebook 1 (notebooks/01_analise_exploratoria.ipynb) para ver a Análise Exploratória.
+    *  Executar o Notebook 2 (notebooks/02_pipeline_modelagem.ipynb) para treinar e avaliar o modelo. Um pipeline final é salvo em model/pipeline_predicao_default.pkl.
+    *  Executar o Notebook 3 (notebooks/03_funcao_predicao.ipynb) para ver como usar a função predict_default(input_dict).
 
 
 #### Contato
