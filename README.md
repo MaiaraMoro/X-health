@@ -110,15 +110,22 @@ Com essa previsão, a empresa poderá:
     
 *  2.  Instalar dependências (arquivo environment.yml) 
 
+    *  Necessário ter o conda instalado
+
 
 
     ```bash
     
     conda env create -f environment.yml
 
+    ```
+
+
+    ```bash
     conda activate X-health-env
 
     ```
+
 
 
 *  3.  Rodar Notebooks
