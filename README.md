@@ -113,7 +113,11 @@ Com essa previsão, a empresa poderá:
 
 
     ```bash
+    
     conda env create -f environment.yml
+
+    conda activate X-health-env
+
     ```
 
 
