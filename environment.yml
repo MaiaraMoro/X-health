@@ -1,0 +1,26 @@
+name: X-health-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - numpy
+  - pandas
+  - scikit-learn
+  - scipy
+  - seaborn
+  - matplotlib
+  - xgboost
+  - joblib
+  - jupyter
+  - jupyterlab
+  - jupyterlab_widgets
+  - jupyter_client
+  - jupyter_console
+  - jupyter_core
+  - jupyter_server
+  - jupyter_server_terminals
+  - jupyterlab_server
+  - matplotlib-inline
+  - packaging
+  - pip  
