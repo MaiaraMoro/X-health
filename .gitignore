@@ -4,6 +4,3 @@
 # ignorar pycache 
 __pycache__/
 
-# ignorar arquivos de dados
-*.csv
-
