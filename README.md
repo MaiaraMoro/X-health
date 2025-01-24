@@ -65,7 +65,8 @@ Com essa previsão, a empresa poderá:
     *  Treinamento de algoritmos (Logistic Regression, RandomForest, XGBoost) e comparação de métricas
     *  Escolha de melhor modelo 
     *  Ajuste de Hiperparâmetros via RandomizedSearchCV, selecionando o melhor conjunto de parâmetros.
-    *  Validação do modelo e checagem de overfitting 
+    *  Treinamento final e avaliação 
+    *  Avaliação de features relevantes
 
 *  3.  Função de Predição (Notebook 3) 
     *  Implementa uma função que: 
@@ -105,7 +106,7 @@ Com essa previsão, a empresa poderá:
     cd X-health
 
     ```
-    
+
     
 *  2.  Instalar dependências (arquivo environment.yml) 
 
