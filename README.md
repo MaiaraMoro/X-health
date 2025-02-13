@@ -15,7 +15,7 @@ O modelo final é integrado a uma função de predição. Esta solução tem pot
 ### **2. Objetivo**   
 
 
-*  O objetivo deste projeto é desenvolver um modelo preditivo de *default*, permitindo que o time financeiro tome decisões mais assertivas.
+*  O objetivo deste projeto é desenvolver um modelo preditivo de *default*.
 
 Com essa previsão, a empresa poderá: 
 
